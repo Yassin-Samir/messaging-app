@@ -41,21 +41,6 @@ function Chatroom() {
   };
   return (
     <>
-      <header>
-        <h1>⚛️🔥💬</h1>
-        <button
-          class="sign-out"
-          onClick={async () => {
-            try {
-              await signOut(auth);
-            } catch {
-              alert("no internet connection");
-            }
-          }}
-        >
-          Sign Out
-        </button>
-      </header>
       <main>
         {messages &&
           messages.map((i, ind) => (
