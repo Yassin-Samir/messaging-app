@@ -41,7 +41,6 @@ function Chatroom() {
       </div>
     );
   };
-  useEffect(() => ref.current.scrollIntoView({ behavior: "smooth" }), []);
   return (
     <>
       <header>
@@ -77,7 +76,11 @@ function Chatroom() {
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <button type="submit" className={`${value ? "click" : "non-click"}`}>
+        <button
+          disabled={!value}
+          type="submit"
+          className={`${value ? "click" : "non-click"}`}
+        >
           send
         </button>
       </form>
