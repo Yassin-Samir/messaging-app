@@ -1,5 +1,4 @@
-import classes from "../css/chatroom.module.css";
-import { signOut, getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import {
   collection,
   addDoc,
@@ -31,56 +30,59 @@ function Chatroom() {
     setValue("");
   };
   const ChatMessage = ({ text, id, photoURL }) => {
-    const classMessage =
-      id === auth.currentUser.uid ? classes.sent : classes.received;
     return (
-      <div className={`${classes.message} ${classMessage}`}>
+      <div
+        className={`message ${
+          id == auth.currentUser.uid ? "sent" : "received"
+        }`}
+      >
         <img src={photoURL} loading="lazy" />
         <p>{text}</p>
       </div>
     );
   };
   return (
-    <div className={classes.Chatroom}>
-      <button
-        className="sign out"
-        onClick={async () => {
-          try {
-            await signOut(auth);
-          } catch {
-            alert("no internet connection");
-          }
-        }}
-      >
-        SignOut
-      </button>
-      <div className={classes.chats}>
-        {messages &&
-          messages.map((i, ind) => (
-            <ChatMessage
-              text={i.text}
-              id={i.uid}
-              key={ind + 1}
-              photoURL={i.photoURL}
-            />
-          ))}
-        <div className={classes.scrollDiv} ref={ref}>
-          test
-        </div>
-      </div>
-      <form onSubmit={sendMessage} className={classes.messageForm}>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <input
-          type="submit"
-          value="send"
-          className={value ? classes.ok : classes.not}
-        />
-      </form>
-    </div>
+    <>
+      <header>
+        <h1>⚛️🔥💬</h1>
+        <button
+          class="sign-out"
+          onClick={async () => {
+            try {
+              await signOut(auth);
+            } catch {
+              alert("no internet connection");
+            }
+          }}
+        >
+          Sign Out
+        </button>
+      </header>
+      <section>
+        <main>
+          {messages &&
+            messages.map((i, ind) => (
+              <ChatMessage
+                text={i.text}
+                id={i.uid}
+                key={ind + 1}
+                photoURL={i.photoURL}
+              />
+            ))}
+          <span ref={ref} className="scroll"></span>
+        </main>
+        <form onSubmit={sendMessage}>
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <button type="submit" className={`${value ? "click" : "non-click"}`}>
+            send
+          </button>
+        </form>
+      </section>
+    </>
   );
 }
 

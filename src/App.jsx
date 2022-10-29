@@ -1,9 +1,10 @@
 import "./css/App.css";
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Signin from "./components/signin";
+import Signout from "./components/signout";
 import Chatroom from "./components/chatroom";
 const app = initializeApp({
   apiKey: "AIzaSyBv3Clx3Z8YCBxtqe89efAbsBlhtAjeavg",
@@ -18,7 +19,15 @@ const auth = getAuth(app);
 export const firestore = getFirestore(app);
 function App() {
   const [user] = useAuthState(auth);
-  return <>{user ? <Chatroom /> : <Signin />}</>;
+  return (
+    <div className="app">
+      <header>
+        <h1>⚛️🔥💬</h1>
+        <Signout />
+      </header>
+      <section>{user ? <Chatroom /> : <Signin />}</section>
+    </div>
+  );
 }
 
 export default App;

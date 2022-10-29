@@ -1,10 +1,10 @@
 import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth";
-function Signin() {
+function SignOut() {
   const googleProvider = new GoogleAuthProvider();
   const auth = getAuth();
   return (
     <button
-      className="sign in"
+      className="sign-in"
       onClick={async () => {
         try {
           await signInWithPopup(auth, googleProvider);
@@ -13,8 +13,8 @@ function Signin() {
         }
       }}
     >
-      SignIn
+      SignIn with google
     </button>
   );
 }
-export default Signin;
+export default SignOut;
