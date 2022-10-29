@@ -7,7 +7,7 @@ import {
   query,
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { firestore } from "../App";
 function Chatroom() {
   const auth = getAuth();
@@ -41,6 +41,7 @@ function Chatroom() {
       </div>
     );
   };
+  useEffect(() => ref.current.scrollIntoView({ behavior: "smooth" }), []);
   return (
     <>
       <header>
