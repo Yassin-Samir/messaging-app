@@ -19,14 +19,12 @@ function Chatroom() {
   const sendMessage = (e) => {
     e.preventDefault();
     ref.current.scrollIntoView({ behavior: "smooth" });
-    value
-      ? addDoc(messagesRef, {
-          text: value,
-          uid: auth.currentUser.uid,
-          createdAt: serverTimestamp(),
-          photoURL: auth.currentUser.photoURL,
-        })
-      : alert("please enter a value");
+    addDoc(messagesRef, {
+      text: value,
+      uid: auth.currentUser.uid,
+      createdAt: serverTimestamp(),
+      photoURL: auth.currentUser.photoURL,
+    });
     setValue("");
   };
   const ChatMessage = ({ text, id, photoURL }) => {
