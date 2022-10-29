@@ -123,7 +123,6 @@ p {
 
 .message {
   display: flex;
-  align-items: center;
 }
 
 .sent {
