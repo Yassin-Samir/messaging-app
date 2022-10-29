@@ -58,30 +58,28 @@ function Chatroom() {
           Sign Out
         </button>
       </header>
-      <section>
-        <main>
-          {messages &&
-            messages.map((i, ind) => (
-              <ChatMessage
-                text={i.text}
-                id={i.uid}
-                key={ind + 1}
-                photoURL={i.photoURL}
-              />
-            ))}
-          <span ref={ref} className="scroll"></span>
-        </main>
-        <form onSubmit={sendMessage}>
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-          />
-          <button type="submit" className={`${value ? "click" : "non-click"}`}>
-            send
-          </button>
-        </form>
-      </section>
+      <main>
+        {messages &&
+          messages.map((i, ind) => (
+            <ChatMessage
+              text={i.text}
+              id={i.uid}
+              key={ind + 1}
+              photoURL={i.photoURL}
+            />
+          ))}
+        <span ref={ref} className="scroll"></span>
+      </main>
+      <form onSubmit={sendMessage}>
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <button type="submit" className={`${value ? "click" : "non-click"}`}>
+          send
+        </button>
+      </form>
     </>
   );
 }
