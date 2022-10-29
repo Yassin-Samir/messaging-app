@@ -7,7 +7,7 @@ import {
   query,
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { firestore } from "../App";
 function Chatroom() {
   const auth = getAuth();
