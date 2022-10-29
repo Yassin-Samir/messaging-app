@@ -6,9 +6,9 @@ function Signout() {
       <button
         onClick={async () => {
           try {
-            signOut(auth);
+            await signOut(auth);
           } catch (error) {
-            alert("no internet");
+            await alert("failed to sign-out");
           }
         }}
       >
