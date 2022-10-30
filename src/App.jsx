@@ -1,7 +1,6 @@
 import "./css/App.css";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Signin from "./components/signin";
 import Signout from "./components/signout";
@@ -16,7 +15,6 @@ const app = initializeApp({
   measurementId: "G-P2ZES8CKF5",
 });
 const auth = getAuth(app);
-export const firestore = getFirestore(app);
 function App() {
   const [user] = useAuthState(auth);
   return (

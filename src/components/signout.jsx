@@ -1,7 +1,6 @@
 import { getAuth, signOut } from "firebase/auth";
 function Signout() {
   const auth = getAuth();
-  console.log(auth);
   return (
     auth.currentUser && (
       <button
