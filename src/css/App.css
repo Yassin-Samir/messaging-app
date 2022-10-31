@@ -148,10 +148,6 @@ img {
 .click {
   cursor: pointer;
 }
-.non-click {
-  cursor: not-allowed;
-  opacity: 1.5;
-}
 .scroll {
   margin-top: 50px;
 }
