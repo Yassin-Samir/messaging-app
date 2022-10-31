@@ -60,11 +60,7 @@ function Chatroom() {
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <button
-          disabled={!value}
-          type="submit"
-          className={`${value ? "click" : "non-click"}`}
-        >
+        <button disabled={!value} type="submit">
           send
         </button>
       </form>
