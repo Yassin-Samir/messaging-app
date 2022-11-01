@@ -1,10 +1,11 @@
 import "./css/App.css";
+import { lazy } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Signin from "./components/signin";
-import Signout from "./components/signout";
-import Chatroom from "./components/chatroom";
+const Signin = lazy(() => import("./components/signin"));
+const Signout = lazy(() => import("./components/signout"));
+const Chatroom = lazy(() => import("./components/chatroom"));
 const app = initializeApp({
   apiKey: "AIzaSyBv3Clx3Z8YCBxtqe89efAbsBlhtAjeavg",
   authDomain: "messaging-app-98837.firebaseapp.com",
