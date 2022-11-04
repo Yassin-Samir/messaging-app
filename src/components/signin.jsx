@@ -1,20 +1,33 @@
-import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  FacebookAuthProvider,
+  TwitterAuthProvider,
+  getAuth,
+} from "firebase/auth";
+import { Fragment } from "react";
+const auth = getAuth();
 function SignOut() {
-  const googleProvider = new GoogleAuthProvider();
-  const auth = getAuth();
+  const HandleLogin = (provider) => {
+    try {
+      signInWithPopup(auth, provider);
+    } catch (err) {
+      alert("failed to sign-in retry again");
+    }
+  };
   return (
-    <button
-      className="sign-in"
-      onClick={async () => {
-        try {
-          await signInWithPopup(auth, googleProvider);
-        } catch {
-          alert("no internet connection");
-        }
-      }}
-    >
-      SignIn with google
-    </button>
+    <Fragment>
+      <button
+        className="sign-in"
+        id="google"
+        onClick={() => {
+          HandleLogin(new GoogleAuthProvider());
+        }}
+      >
+        SignIn with google
+      </button>
+    </Fragment>
   );
 }
 export default SignOut;

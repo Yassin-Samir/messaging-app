@@ -98,12 +98,13 @@ button:disabled {
 }
 
 .sign-in {
+  max-width: 400px;
+  margin: 10px auto 0;
+}
+#google {
   color: #282c34;
   background: white;
-  max-width: 400px;
-  margin: 0 auto;
 }
-
 ul,
 li {
   text-align: left;
