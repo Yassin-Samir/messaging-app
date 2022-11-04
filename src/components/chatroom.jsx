@@ -9,17 +9,17 @@ import {
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useState, useRef } from "react";
+const auth = getAuth();
+const firestore = getFirestore();
+const messagesRef = collection(firestore, "messages");
+const messageQuery = query(messagesRef, orderBy("createdAt"));
 function Chatroom() {
-  const auth = getAuth();
-  const firestore = getFirestore();
-  const messagesRef = collection(firestore, "messages");
-  const messageQuery = query(messagesRef, orderBy("createdAt"));
   const [messages] = useCollectionData(messageQuery);
   const [value, setValue] = useState("");
-  const ref = useRef();
+  const SpanRef = useRef();
   const sendMessage = (e) => {
     e.preventDefault();
-    ref.current.scrollIntoView({ behavior: "smooth" });
+    SpanRef.current.scrollIntoView({ behavior: "smooth" });
     addDoc(messagesRef, {
       text: value,
       uid: auth.currentUser.uid,
@@ -28,11 +28,11 @@ function Chatroom() {
     });
     setValue("");
   };
-  const ChatMessage = ({ text, id, photoURL }) => {
+  const ChatMessage = ({ text, uid, photoURL }) => {
     return (
       <div
         className={`message ${
-          id == auth.currentUser.uid ? "sent" : "received"
+          uid === auth.currentUser.uid ? "sent" : "received"
         }`}
       >
         <img src={photoURL} loading="lazy" />
@@ -44,15 +44,8 @@ function Chatroom() {
     <>
       <main>
         {messages &&
-          messages.map((i, ind) => (
-            <ChatMessage
-              text={i.text}
-              id={i.uid}
-              key={ind + 1}
-              photoURL={i.photoURL}
-            />
-          ))}
-        <span ref={ref} className="scroll"></span>
+          messages.map((i, ind) => <ChatMessage {...i} key={ind + 1} />)}
+        <span className="scroll" ref={SpanRef}></span>
       </main>
       <form onSubmit={sendMessage}>
         <input

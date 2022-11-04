@@ -1,18 +1,11 @@
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  GithubAuthProvider,
-  FacebookAuthProvider,
-  TwitterAuthProvider,
-  getAuth,
-} from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth";
 import { Fragment } from "react";
 const auth = getAuth();
 function SignOut() {
   const HandleLogin = (provider) => {
     try {
       signInWithPopup(auth, provider);
-    } catch (err) {
+    } catch {
       alert("failed to sign-in retry again");
     }
   };

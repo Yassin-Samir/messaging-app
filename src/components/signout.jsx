@@ -1,20 +1,13 @@
-import { getAuth, signOut } from "firebase/auth";
+import { signOut, getAuth } from "firebase/auth";
+const auth = getAuth();
 function Signout() {
-  const auth = getAuth();
-  return (
-    auth.currentUser && (
-      <button
-        onClick={async () => {
-          try {
-            await signOut(auth);
-          } catch (error) {
-            await alert("failed to sign-out");
-          }
-        }}
-      >
-        SignOut
-      </button>
-    )
-  );
+  const handleSignout = () => {
+    try {
+      signOut(auth);
+    } catch (error) {
+      alert("failed to sign-out");
+    }
+  };
+  return <button onClick={handleSignout}>SignOut</button>;
 }
 export default Signout;

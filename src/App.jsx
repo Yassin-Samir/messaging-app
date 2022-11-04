@@ -22,7 +22,7 @@ function App() {
     <div className="app">
       <header>
         <h1>⚛️🔥💬</h1>
-        <Signout />
+        {user && <Signout />}
       </header>
       <section>{user ? <Chatroom /> : <Signin />}</section>
     </div>
