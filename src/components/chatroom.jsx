@@ -15,7 +15,6 @@ const firestore = getFirestore();
 const messagesRef = collection(firestore, "messages");
 const messageQuery = query(messagesRef, orderBy("createdAt"));
 function Chatroom() {
-  console.log("RE EXCUTED");
   const [messages] = useCollectionData(messageQuery);
   const SpanRef = useRef();
   const ChatMessage = ({ text, uid, photoURL }) => {
