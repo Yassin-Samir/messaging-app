@@ -5,6 +5,7 @@ import {
   addDoc,
   serverTimestamp,
   orderBy,
+  limit,
   query,
   getFirestore,
 } from "firebase/firestore";
@@ -13,7 +14,7 @@ import { useState, useRef, Suspense } from "react";
 const auth = getAuth();
 const firestore = getFirestore();
 const messagesRef = collection(firestore, "messages");
-const messageQuery = query(messagesRef, orderBy("createdAt"));
+const messageQuery = query(messagesRef, orderBy("createdAt"), limit(13));
 function Chatroom() {
   const [messages] = useCollectionData(messageQuery);
   const SpanRef = useRef();
