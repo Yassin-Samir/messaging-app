@@ -1,5 +1,6 @@
 import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth";
 import { Fragment } from "react";
+import "../css/signin.css";
 const auth = getAuth();
 function SignOut() {
   const HandleLogin = (provider) => {

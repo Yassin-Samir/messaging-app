@@ -1,5 +1,5 @@
 import "./css/App.css";
-import { lazy } from "react";
+import { lazy,Suspense } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -24,7 +24,7 @@ function App() {
         <h1>⚛️🔥💬</h1>
         {user && <Signout />}
       </header>
-      <section>{user ? <Chatroom /> : <Signin />}</section>
+      <section>{user ? <Suspense fallback={<div className="spinner big"></div>}> <Chatroom /></Suspense> : <Signin />}</section>
     </div>
   );
 }
