@@ -1,11 +1,11 @@
 import "./css/App.css";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, createContext } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 const Signin = lazy(() => import("./components/signin"));
 const Signout = lazy(() => import("./components/signout"));
-const Chatroom = lazy(() => import("./components/chatroom"));
+const Chatroom = lazy(() => import("./components/chatroom/chatroom"));
 const app = initializeApp({
   apiKey: "AIzaSyBv3Clx3Z8YCBxtqe89efAbsBlhtAjeavg",
   authDomain: "messaging-app-98837.firebaseapp.com",
@@ -16,24 +16,27 @@ const app = initializeApp({
   measurementId: "G-P2ZES8CKF5",
 });
 const auth = getAuth(app);
+export const Context = createContext(null);
 function App() {
   const [user] = useAuthState(auth);
   return (
-    <div className="app">
-      <header>
-        <h1>⚛️🔥💬</h1>
-        {user && <Signout />}
-      </header>
-      <section>
-        {user ? (
-          <Suspense fallback={<div className="spinner big"></div>}>
-            <Chatroom />
-          </Suspense>
-        ) : (
-          <Signin />
-        )}
-      </section>
-    </div>
+    <Context.Provider value={auth}>
+      <div className="app">
+        <header>
+          <h1>⚛️🔥💬</h1>
+          {user && <Signout />}
+        </header>
+        <section>
+          {user ? (
+            <Suspense fallback={<div className="spinner big"></div>}>
+              <Chatroom />
+            </Suspense>
+          ) : (
+            <Signin />
+          )}
+        </section>
+      </div>
+    </Context.Provider>
   );
 }
 
