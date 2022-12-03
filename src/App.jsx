@@ -1,8 +1,9 @@
 import "./css/App.css";
-import { lazy, Suspense, createContext } from "react";
+import { lazy, Suspense, createContext, Fragment } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Helmet } from "react-helmet";
 const Signin = lazy(() => import("./components/signin"));
 const Signout = lazy(() => import("./components/signout"));
 const Chatroom = lazy(() => import("./components/chatroom/chatroom"));
@@ -20,23 +21,28 @@ export const Context = createContext(null);
 function App() {
   const [user] = useAuthState(auth);
   return (
-    <Context.Provider value={auth}>
-      <div className="app">
-        <header>
-          <h1>⚛️🔥💬</h1>
-          {user && <Signout />}
-        </header>
-        <section>
-          {user ? (
-            <Suspense fallback={<div className="spinner big"></div>}>
-              <Chatroom />
-            </Suspense>
-          ) : (
-            <Signin />
-          )}
-        </section>
-      </div>
-    </Context.Provider>
+    <Fragment>
+      <Helmet>
+        <title>{user ? "Chatroom" : "Login page"}</title>
+      </Helmet>
+      <Context.Provider value={auth}>
+        <div className="app">
+          <header>
+            <h1>⚛️🔥💬</h1>
+            {user && <Signout />}
+          </header>
+          <section>
+            {user ? (
+              <Suspense fallback={<div className="spinner big"></div>}>
+                <Chatroom />
+              </Suspense>
+            ) : (
+              <Signin />
+            )}
+          </section>
+        </div>
+      </Context.Provider>
+    </Fragment>
   );
 }
 
