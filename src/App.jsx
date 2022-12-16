@@ -3,7 +3,7 @@ import { lazy, Suspense, createContext, Fragment } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 const Signin = lazy(() => import("./components/signin"));
 const Signout = lazy(() => import("./components/signout"));
 const Chatroom = lazy(() => import("./components/chatroom/chatroom"));
@@ -17,15 +17,15 @@ const app = initializeApp({
   measurementId: "G-P2ZES8CKF5",
 });
 const auth = getAuth(app);
-export const Context = createContext(null);
+export const AuthContext = createContext(null);
 function App() {
   const [user] = useAuthState(auth);
   return (
-    <Fragment>
+    <HelmetProvider>
       <Helmet>
         <title>{user ? "Chatroom" : "Login page"}</title>
       </Helmet>
-      <Context.Provider value={auth}>
+      <AuthContext.Provider value={auth}>
         <div className="app">
           <header>
             <h1>⚛️🔥💬</h1>
@@ -41,8 +41,8 @@ function App() {
             )}
           </section>
         </div>
-      </Context.Provider>
-    </Fragment>
+      </AuthContext.Provider>
+    </HelmetProvider>
   );
 }
 

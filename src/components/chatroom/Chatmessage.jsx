@@ -1,7 +1,7 @@
 import { Suspense, useContext } from "react";
-import { Context } from "../../App";
+import { AuthContext } from "../../App";
 export default function ChatMessage({ text, uid, photoURL }) {
-  const auth = useContext(Context);
+  const auth = useContext(AuthContext);
   return (
     <div
       className={`message ${

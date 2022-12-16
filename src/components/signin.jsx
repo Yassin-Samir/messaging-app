@@ -1,8 +1,9 @@
-import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth";
-import { Fragment } from "react";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { Fragment, useContext } from "react";
+import { AuthContext } from "../App";
 import "../css/signin.css";
-const auth = getAuth();
 function SignOut() {
+  const auth = useContext(AuthContext);
   const HandleLogin = (provider) => {
     try {
       signInWithPopup(auth, provider);

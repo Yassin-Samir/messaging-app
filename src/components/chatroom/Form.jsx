@@ -1,9 +1,9 @@
 import { useState, useContext } from "react";
 import { addDoc, serverTimestamp } from "firebase/firestore";
-import { Context } from "../../App";
+import { AuthContext } from "../../App";
 export default function Form({ SpanRef, messagesRef }) {
   const [message, setMessage] = useState("");
-  const auth = useContext(Context);
+  const auth = useContext(AuthContext);
   const sendMessage = (e) => {
     e.preventDefault();
     SpanRef.current.scrollIntoView({ behaviour: "smooth" });
