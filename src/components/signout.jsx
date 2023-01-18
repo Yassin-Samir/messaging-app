@@ -1,15 +1,16 @@
 import { signOut } from "firebase/auth";
 import { AuthContext } from "../App";
 import { useContext } from "react";
-function Signout() {
+import { useCallback } from "react";
+function SignOut() {
   const auth = useContext(AuthContext);
-  const handleSignout = () => {
+  const handleSignOut = useCallback(() => {
     try {
       signOut(auth);
     } catch (error) {
       alert("failed to sign-out");
     }
-  };
-  return <button onClick={handleSignout}>SignOut</button>;
+  }, [auth?.currentUser?.uid]);
+  return <button onClick={handleSignOut}>SignOut</button>;
 }
-export default Signout;
+export default SignOut;

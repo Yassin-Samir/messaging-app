@@ -1,20 +1,23 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useCallback } from "react";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 import { AuthContext } from "../../App";
 export default function Form({ SpanRef, messagesRef }) {
   const [message, setMessage] = useState("");
   const auth = useContext(AuthContext);
-  const sendMessage = (e) => {
-    e.preventDefault();
-    SpanRef.current.scrollIntoView({ behaviour: "smooth" });
-    addDoc(messagesRef, {
-      text: message,
-      uid: auth.currentUser.uid,
-      createdAt: serverTimestamp(),
-      photoURL: auth.currentUser.photoURL,
-    });
-    setMessage("");
-  };
+  const sendMessage = useCallback(
+    (e) => {
+      e.preventDefault();
+      SpanRef.current.scrollIntoView({ behaviour: "smooth" });
+      addDoc(messagesRef, {
+        text: message,
+        uid: auth.currentUser.uid,
+        createdAt: serverTimestamp(),
+        photoURL: auth.currentUser.photoURL,
+      });
+      setMessage("");
+    },
+    [message]
+  );
   return (
     <>
       <form onSubmit={sendMessage}>

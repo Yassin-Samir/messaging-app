@@ -1,11 +1,11 @@
 import "./css/App.css";
-import { lazy, Suspense, createContext, Fragment } from "react";
+import { lazy, Suspense, createContext } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-const Signin = lazy(() => import("./components/signin"));
-const Signout = lazy(() => import("./components/signout"));
+import Signin from './components/signin'
+const SignOut = lazy(() => import("./components/signout"));
 const Chatroom = lazy(() => import("./components/chatroom/chatroom"));
 const app = initializeApp({
   apiKey: "AIzaSyBv3Clx3Z8YCBxtqe89efAbsBlhtAjeavg",
@@ -29,7 +29,7 @@ function App() {
         <div className="app">
           <header>
             <h1>⚛️🔥💬</h1>
-            {user && <Signout />}
+            {user && <SignOut />}
           </header>
           <section>
             {user ? (
