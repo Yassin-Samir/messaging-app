@@ -1,7 +1,6 @@
+import { useContext, useCallback } from "react";
 import { signOut } from "firebase/auth";
 import { AuthContext } from "../App";
-import { useContext } from "react";
-import { useCallback } from "react";
 function SignOut() {
   const auth = useContext(AuthContext);
   const handleSignOut = useCallback(() => {

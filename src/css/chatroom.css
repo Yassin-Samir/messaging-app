@@ -1,4 +1,4 @@
-main {
+section {
   padding: 10px;
   height: 80vh;
   margin: 10vh 0 10vh;
@@ -6,15 +6,15 @@ main {
   display: flex;
   flex-direction: column;
 }
-main::-webkit-scrollbar {
+section::-webkit-scrollbar {
   width: 0.25rem;
 }
 
-main::-webkit-scrollbar-track {
+section::-webkit-scrollbar-track {
   background: #1e1e24;
 }
 
-main::-webkit-scrollbar-thumb {
+section::-webkit-scrollbar-thumb {
   background: #6649b8;
 }
 .message {

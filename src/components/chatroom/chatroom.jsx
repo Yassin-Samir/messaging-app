@@ -1,7 +1,6 @@
-import "../../css/chatroom.css";
+import { useRef } from "react";
 import { collection, orderBy, query, getFirestore } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { useRef } from "react";
 import Form from "./Form";
 import ChatMessage from "./Chatmessage";
 const firestore = getFirestore();
@@ -12,11 +11,11 @@ function Chatroom() {
   const SpanRef = useRef();
   return (
     <>
-      <main>
+      <section>
         {messages &&
           messages.map((i, ind) => <ChatMessage {...i} key={ind + 1} />)}
         <span className="scroll" ref={SpanRef}></span>
-      </main>
+      </section>
       <Form SpanRef={SpanRef} messagesRef={messagesRef} />
     </>
   );

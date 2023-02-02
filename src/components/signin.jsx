@@ -1,7 +1,6 @@
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Fragment, useContext, useCallback } from "react";
 import { AuthContext } from "../App";
-import "../css/signin.css";
 function SignIn() {
   const auth = useContext(AuthContext);
   const HandleLogin = useCallback((provider) => {
@@ -14,15 +13,13 @@ function SignIn() {
     };
   }, []);
   return (
-    <Fragment>
-      <button
-        className="sign-in"
-        id="google"
-        onClick={HandleLogin(new GoogleAuthProvider())}
-      >
-        SignIn with google
-      </button>
-    </Fragment>
+    <button
+      className="sign-in"
+      id="google"
+      onClick={HandleLogin(new GoogleAuthProvider())}
+    >
+      SignIn with google
+    </button>
   );
 }
 export default SignIn;
