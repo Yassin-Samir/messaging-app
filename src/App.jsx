@@ -8,7 +8,7 @@ import "./css/App.css";
 import "./css/signIn.css";
 import "./css/chatroom.css";
 
-const SignOut = lazy(() => import("./components/signout"));
+const SignOut = lazy(() => import("./components/signOut"));
 const Chatroom = lazy(() => import("./components/chatroom/chatroom"));
 export const AuthContext = createContext(null);
 function App() {
