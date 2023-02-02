@@ -1,5 +1,5 @@
+import { useContext, useCallback } from "react";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { Fragment, useContext, useCallback } from "react";
 import { AuthContext } from "../App";
 function SignIn() {
   const auth = useContext(AuthContext);

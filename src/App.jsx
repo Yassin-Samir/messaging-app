@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import SignIn from "./components/signIn";
+import SignIn from "./components/signin";
 import "./css/App.css";
 import "./css/signIn.css";
 import "./css/chatroom.css";
