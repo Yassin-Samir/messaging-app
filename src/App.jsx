@@ -5,10 +5,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import SignIn from "./components/signin";
 import "./css/App.css";
-import "./css/signIn.css";
+import "./css/signin.css";
 import "./css/chatroom.css";
 
-const SignOut = lazy(() => import("./components/signOut"));
+const SignOut = lazy(() => import("./components/signout"));
 const Chatroom = lazy(() => import("./components/chatroom/chatroom"));
 export const AuthContext = createContext(null);
 function App() {
