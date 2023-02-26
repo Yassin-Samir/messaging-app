@@ -1,4 +1,11 @@
-import { useState, useContext, useCallback, memo } from "react";
+import {
+  useState,
+  useContext,
+  useCallback,
+  memo,
+  useDeferredValue,
+  useEffect,
+} from "react";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 import { AuthContext } from "../../App";
 function Form({ SpanRef, messagesRef }) {
@@ -9,6 +16,7 @@ function Form({ SpanRef, messagesRef }) {
       e.preventDefault();
       SpanRef.current.scrollIntoView({ behaviour: "smooth" });
       try {
+        setMessage("");
         addDoc(messagesRef, {
           text: message,
           uid: auth.currentUser.uid,
@@ -17,8 +25,6 @@ function Form({ SpanRef, messagesRef }) {
         });
       } catch (error) {
         alert("failed to send your message please try again");
-      } finally {
-        setMessage("");
       }
     },
     [message]
