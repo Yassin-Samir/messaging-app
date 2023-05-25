@@ -1,7 +1,6 @@
-import { lazy, Suspense, createContext, useMemo } from "react";
+import { lazy, Suspense, createContext, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import SignIn from "./components/signIn";
 import "./css/App.css";
@@ -22,12 +21,17 @@ const app = initializeApp({
 });
 const auth = getAuth(app);
 function App() {
-  const [user] = useAuthState(auth);
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => setUser(user));
+  }, []);
   return (
-    <HelmetProvider>
-      <Helmet>
-        <title>{user ? "Chatroom" : "Login page"}</title>
-      </Helmet>
+    <>
+      <HelmetProvider>
+        <Helmet>
+          <title>{user ? "Chatroom" : "Login page"}</title>
+        </Helmet>
+      </HelmetProvider>
       <AuthContext.Provider value={auth}>
         <div className="app">
           <header>
@@ -45,7 +49,7 @@ function App() {
           </main>
         </div>
       </AuthContext.Provider>
-    </HelmetProvider>
+    </>
   );
 }
 

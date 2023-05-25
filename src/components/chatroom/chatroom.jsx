@@ -18,12 +18,13 @@ const messageQuery = query(
 );
 function Chatroom() {
   const [messages] = useCollectionData(messageQuery);
-  console.log({ messages });
   return (
     <>
       <section>
         {messages &&
-          messages.map((i, ind) => <ChatMessage {...i} key={ind + 1} />)}
+          messages
+            .reverse()
+            .map((i, ind) => <ChatMessage {...i} key={ind + 1} />)}
       </section>
       <Form messagesRef={messagesRef} />
     </>
