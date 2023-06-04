@@ -7,6 +7,7 @@ import EmojiData from "@emoji-mart/data";
 import imgInput from "../../assets/image-solid.svg";
 import useReader from "../../hooks/useReader";
 import storage from "../../firebase/storage";
+import smileEmoji from "../../assets/smile-solid.svg";
 function Form({ messagesRef }) {
   const [message, setMessage] = useState("");
   const [ShowEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -22,7 +23,6 @@ function Form({ messagesRef }) {
         return;
       }
       const file = e.target.files[0];
-      console.log({ file });
       setImg(reader(file));
       if (!Img) return;
       URL.revokeObjectURL(Img.url);
@@ -70,7 +70,6 @@ function Form({ messagesRef }) {
     },
     [message, auth, Img]
   );
-  console.log({ EmojiData });
   const handleEmojiClick = useCallback(
     (emoji) => {
       const newMessage = message + emoji.native;
@@ -98,8 +97,14 @@ function Form({ messagesRef }) {
           placeholder="Write a message"
           disabled={Img}
           onChange={handleChange}
+          onClick={() => (ShowEmojiPicker ? setShowEmojiPicker(false) : null)}
         />
-        <button type="button" disabled={message} className="imgInput" onClick={handleImgChange}>
+        <button
+          type="button"
+          disabled={message}
+          className="imgInput"
+          onClick={handleImgChange}
+        >
           <img src={imgInput} alt="Image Svg" />
         </button>
         <input
@@ -109,8 +114,12 @@ function Form({ messagesRef }) {
           onChange={handleInputChange}
           style={{ display: "none" }}
         />
-        <button type="button" onClick={handleOpenEmojiPicker}>
-          {ShowEmojiPicker ? "Hide" : "Show"} Emoji Picker
+        <button
+          type="button"
+          style={{ padding: "0" }}
+          onClick={handleOpenEmojiPicker}
+        >
+          <img src={smileEmoji} alt="Smile Icon" />
         </button>
         <button disabled={!message && !Img} type="submit">
           send
