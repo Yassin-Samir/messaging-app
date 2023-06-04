@@ -10,6 +10,6 @@ function SignOut() {
       alert("failed to sign-out");
     }
   }, [auth?.currentUser?.uid]);
-  return <button onClick={handleSignOut}>SignOut</button>;
+  return <button className="signBtn" onClick={handleSignOut}>SignOut</button>;
 }
 export default SignOut;

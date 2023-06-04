@@ -17,7 +17,7 @@ function SignIn() {
   );
   return (
     <button
-      className="sign-in"
+      className="sign-in sign"
       id="google"
       onClick={HandleLogin(new GoogleAuthProvider())}
     >
