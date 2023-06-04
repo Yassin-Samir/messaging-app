@@ -1,6 +1,6 @@
 import { Suspense, useContext } from "react";
 import { AuthContext } from "../../App";
-function ChatMessage({ text, uid, photoURL }) {
+function ChatMessage({ value, uid, photoURL, type }) {
   const auth = useContext(AuthContext);
   return (
     <div
@@ -9,9 +9,18 @@ function ChatMessage({ text, uid, photoURL }) {
       }`}
     >
       <Suspense fallback={<div className="spinner small"></div>}>
-        <img src={photoURL} alt="USER IMAGE" referrerPolicy="no-referrer" />
+        <img
+          src={photoURL}
+          className="user"
+          alt="USER IMAGE"
+          referrerPolicy="no-referrer"
+        />
       </Suspense>
-      <p>{text}</p>
+      {type === "text" ? (
+        <p>{value}</p>
+      ) : (
+        <img src={value} loading="lazy" className="messageImg" alt="Image" />
+      )}
     </div>
   );
 }

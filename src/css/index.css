@@ -16,13 +16,14 @@ a {
 }
 img {
   user-select: none;
+  margin: 2px 5px;
 }
+
 ul,
 li {
   text-align: left;
   list-style: none;
 }
-
 p {
   max-width: 500px;
   margin-bottom: 12px;

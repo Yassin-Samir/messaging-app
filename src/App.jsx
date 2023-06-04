@@ -10,7 +10,7 @@ import "./css/chatroom.css";
 const SignOut = lazy(() => import("./components/signOut"));
 const Chatroom = lazy(() => import("./components/chatroom/chatroom"));
 export const AuthContext = createContext(null);
-const app = initializeApp({
+export const FirebaseApp = initializeApp({
   apiKey: "AIzaSyBv3Clx3Z8YCBxtqe89efAbsBlhtAjeavg",
   authDomain: "messaging-app-98837.firebaseapp.com",
   projectId: "messaging-app-98837",
@@ -19,7 +19,7 @@ const app = initializeApp({
   appId: "1:194519848762:web:85971f3ae04d821f1e6203",
   measurementId: "G-P2ZES8CKF5",
 });
-const auth = getAuth(app);
+const auth = getAuth(FirebaseApp);
 function App() {
   const [user, setUser] = useState(null);
   useEffect(() => {
