@@ -121,7 +121,7 @@ function Form({ messagesRef }) {
         >
           <img src={smileEmoji} alt="Smile Icon" />
         </button>
-        <button disabled={!message && !Img} type="submit">
+        <button disabled={!message.replace(/\s+/,"") && !Img} type="submit">
           send
         </button>
       </form>
