@@ -8,6 +8,7 @@ import imgInput from "../../assets/image-solid.svg";
 import useReader from "../../hooks/useReader";
 import storage from "../../firebase/storage";
 import smileEmoji from "../../assets/smile-solid.svg";
+import XIcon from "../../assets/icons8-x-50.png";
 function Form({ messagesRef }) {
   const [message, setMessage] = useState("");
   const [Loading, setLoading] = useState(null);
@@ -34,7 +35,14 @@ function Form({ messagesRef }) {
     () => setShowEmojiPicker((prev) => !prev),
     []
   );
-
+  const cleanImg = useCallback(
+    () =>
+      setImg((prev) => {
+        URL.revokeObjectURL(prev.url);
+        return null;
+      }),
+    []
+  );
   const sendMessage = useCallback(
     async (e) => {
       e.preventDefault();
@@ -69,8 +77,7 @@ function Form({ messagesRef }) {
           setMessage("");
           return;
         }
-        URL.revokeObjectURL(Img.url);
-        setImg(null);
+        cleanImg();
       }
     },
     [message, auth, Img]
@@ -94,12 +101,15 @@ function Form({ messagesRef }) {
       )}
       <form onSubmit={sendMessage}>
         {Img ? (
-          <img
-            src={Img.url}
-            style={{ opacity: Loading === 0 ? 0.1 : Loading }}
-            alt="Selected Image"
-            className="displayImg"
-          />
+          <div>
+            <img
+              src={Img.url}
+              style={{ opacity: Loading === null ? 0.1 : Loading }}
+              alt="Selected Image"
+              className="displayImg"
+            />
+            <img src={XIcon} alt="XIcon" onClick={cleanImg} className="xIcon" />
+          </div>
         ) : null}
         <input
           type="text"
@@ -131,7 +141,14 @@ function Form({ messagesRef }) {
         >
           <img src={smileEmoji} alt="Smile Icon" />
         </button>
-        <button disabled={Loading !== 0 && Loading !== null ? true : !message.replace(/\s+/,"") && !Img} type="submit">
+        <button
+          disabled={
+            Loading !== 0 && Loading !== null
+              ? true
+              : !message.replace(/\s+/, "") && !Img
+          }
+          type="submit"
+        >
           send
         </button>
       </form>
