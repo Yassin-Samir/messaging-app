@@ -10,6 +10,7 @@ import storage from "../../firebase/storage";
 import smileEmoji from "../../assets/smile-solid.svg";
 function Form({ messagesRef }) {
   const [message, setMessage] = useState("");
+  const [Loading, setLoading] = useState(null);
   const [ShowEmojiPicker, setShowEmojiPicker] = useState(false);
   const reader = useReader();
   const [Img, setImg] = useState(null);
@@ -40,16 +41,19 @@ function Form({ messagesRef }) {
       try {
         let downloadUrl = "";
         if (Img) {
-          const storageRef = ref(storage, `/files/${Img.blob.name}`);
-          const uploadTask = await uploadBytesResumable(
-            storageRef,
-            Img.blob
-          ).catch((err) => {
-            console.log({ err });
+          try {
+            const storageRef = ref(storage, `/files/${Img.blob.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, Img.blob);
+            uploadTask.on("state_changed", (snapshot) =>
+              setLoading(snapshot.bytesTransferred / snapshot.totalBytes || 0.1)
+            );
+            downloadUrl = await getDownloadURL((await uploadTask).ref);
+          } catch (error) {
+            console.log({ error });
             alert("failed to upload file");
-          });
-          downloadUrl = await getDownloadURL(uploadTask.ref);
+          }
         }
+        setLoading((prev) => (prev !== null ? prev : true));
         addDoc(messagesRef, {
           type: Img ? "Image" : "text",
           value: Img ? downloadUrl : message,
@@ -60,6 +64,7 @@ function Form({ messagesRef }) {
       } catch (error) {
         alert("failed to send your message please try again");
       } finally {
+        setLoading(null);
         if (message) {
           setMessage("");
           return;
@@ -89,7 +94,12 @@ function Form({ messagesRef }) {
       )}
       <form onSubmit={sendMessage}>
         {Img ? (
-          <img src={Img.url} alt="Selected Image" className="displayImg" />
+          <img
+            src={Img.url}
+            style={{ opacity: Loading === 0 ? 0.1 : Loading }}
+            alt="Selected Image"
+            className="displayImg"
+          />
         ) : null}
         <input
           type="text"
@@ -121,7 +131,10 @@ function Form({ messagesRef }) {
         >
           <img src={smileEmoji} alt="Smile Icon" />
         </button>
-        <button disabled={!message && !Img} type="submit">
+        <button
+          disabled={Loading !== 0 && Loading !== null ? true : !message && !Img}
+          type="submit"
+        >
           send
         </button>
       </form>
