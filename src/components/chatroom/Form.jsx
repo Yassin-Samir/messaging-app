@@ -127,7 +127,7 @@ function Form({ messagesRef }) {
         />
         <button
           type="button"
-          disabled={message}
+          disabled={message || (Loading !== 0 && Loading !== null)}
           className="imgInput"
           onClick={handleImgChange}
         >
