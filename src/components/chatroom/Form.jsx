@@ -6,7 +6,7 @@ import Picker from "@emoji-mart/react";
 import EmojiData from "@emoji-mart/data";
 import imgInput from "../../assets/image-solid.svg";
 import useReader from "../../hooks/useReader";
-import storage from "../../firebase/storage";
+import { storage } from "../../firebase/firebase";
 import smileEmoji from "../../assets/smile-solid.svg";
 import XIcon from "../../assets/icons8-x-50.png";
 function Form({ messagesRef }) {
@@ -108,7 +108,13 @@ function Form({ messagesRef }) {
               alt="Selected Image"
               className="displayImg"
             />
-            <img src={XIcon} alt="XIcon" onClick={cleanImg} className="xIcon" />
+            <button
+              type="button"
+              disabled={Loading !== 0 && Loading !== null}
+              onClick={cleanImg}
+            >
+              <img src={XIcon} alt="XIcon" className="xIcon" />
+            </button>
           </div>
         ) : null}
         <input
@@ -137,6 +143,7 @@ function Form({ messagesRef }) {
         <button
           type="button"
           style={{ padding: "0" }}
+          disabled={Img}
           onClick={handleOpenEmojiPicker}
         >
           <img src={smileEmoji} alt="Smile Icon" />
