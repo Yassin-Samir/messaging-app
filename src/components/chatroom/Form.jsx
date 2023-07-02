@@ -83,11 +83,8 @@ function Form({ messagesRef }) {
     [message, auth, Img]
   );
   const handleEmojiClick = useCallback(
-    (emoji) => {
-      const newMessage = message + emoji.native;
-      setMessage(newMessage);
-    },
-    [message]
+    (emoji) => setMessage((prevMessage) => prevMessage + emoji.native),
+    []
   );
   const handleChange = useCallback(
     ({ target: { value } }) => setMessage(value),
