@@ -20,7 +20,28 @@ section::-webkit-scrollbar-thumb {
 .message {
   display: flex;
 }
-
+.message .unSendContainer {
+  display: flex;
+  position: relative;
+  margin-right: 10px;
+}
+.message .threeDots {
+  align-self: center;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.message .unSend {
+  position: absolute;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  font-size: 0.7rem;
+  left: -85px;
+  bottom: 65%;
+}
 .sent {
   flex-direction: row-reverse;
 }
