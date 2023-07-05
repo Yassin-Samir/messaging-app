@@ -1,12 +1,12 @@
 import { useContext, useCallback } from "react";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
 import { AuthContext } from "../App";
 function SignIn() {
   const auth = useContext(AuthContext);
   const HandleLogin = (provider) => {
     return () => {
       try {
-        signInWithPopup(auth, provider);
+        signInWithRedirect(auth, provider);
       } catch {
         alert("failed to sign-in retry again");
       }
