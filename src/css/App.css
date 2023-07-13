@@ -32,7 +32,8 @@ button.sign {
   font-size: 1.25rem;
 }
 main > div:not(.spinner) {
-  position: fixed;
+  position: absolute;
   right: 1vw;
   bottom: 10.5vh;
+  z-index: 9999;
 }
