@@ -5,12 +5,13 @@ import { useState } from "react";
 function useCollectionData(colRef) {
   const [Messages, setMessages] = useState([]);
   useEffect(() => {
-    const sub = onSnapshot(colRef, (querySnapshot) => {
+    const unSub = onSnapshot(colRef, (querySnapshot) => {
       setMessages([]);
       querySnapshot.forEach((doc) => {
         setMessages((prev) => [...prev, { ...doc.data(), docId: doc.id }]);
       });
     });
+    return () => unSub();
   }, []);
   return Messages;
 }

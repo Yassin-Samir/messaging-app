@@ -2,6 +2,9 @@ import { Suspense, useCallback, useContext, useState } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { AuthContext } from "../../App";
+
+const linkRegex =
+  /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?/g;
 function ChatMessage({ value, uid, photoURL, type, docId }) {
   const [DisplayMenu, setDisplayMenu] = useState(false);
   const auth = useContext(AuthContext);
@@ -27,7 +30,19 @@ function ChatMessage({ value, uid, photoURL, type, docId }) {
         />
       </Suspense>
       {type === "text" ? (
-        <p>{value}</p>
+        <p>
+          {value.split(" ").map((textPart, i) => {
+            const joinedText = textPart + " ";
+            if (textPart.match(linkRegex)) {
+              return (
+                <a href={textPart} key={i + 1} target="_blank">
+                  {joinedText}
+                </a>
+              );
+            }
+            return joinedText;
+          })}
+        </p>
       ) : (
         <img src={value} loading="lazy" className="messageImg" alt="Image" />
       )}
