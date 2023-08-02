@@ -46,6 +46,10 @@ section::-webkit-scrollbar-thumb {
   flex-direction: row-reverse;
 }
 
+.message a {
+  display: inline;
+}
+
 .sent p {
   color: white;
   background: #0b93f6;
