@@ -1,11 +1,22 @@
 import { Suspense, useCallback, useContext, useState } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { db, storage } from "../../firebase/firebase";
+import { deleteObject, ref } from "firebase/storage";
 import { AuthContext } from "../../App";
 
 const linkRegex =
   /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?/g;
-function ChatMessage({ value, uid, photoURL, type, docId }) {
+function ChatMessage({
+  value,
+  uid,
+  photoURL,
+  type,
+  docId,
+  Loading,
+  optimisticMessages,
+  ImageName,
+}) {
+  console.log({ Loading });
   const [DisplayMenu, setDisplayMenu] = useState(false);
   const auth = useContext(AuthContext);
   const receiverORsender = uid === auth.currentUser.uid;
@@ -17,10 +28,21 @@ function ChatMessage({ value, uid, photoURL, type, docId }) {
     } catch (error) {
       console.log({ error });
       alert("failed to delete doc");
+    } finally {
+      if (type === "text") return;
+      const isThisImageUsedInAnotherMessage = optimisticMessages?.filter(
+        ({ type, ImageName: value }) => type !== "text" && value === ImageName
+      );
+      console.log({ isThisImageUsedInAnotherMessage });
+      if (isThisImageUsedInAnotherMessage?.length > 1) return;
+      const deleteImg = await deleteObject(ref(storage, `/files/${ImageName}`));
     }
-  }, [docId]);
+  }, [docId, ImageName, optimisticMessages]);
   return (
-    <div className={`message ${receiverORsender ? "sent" : "received"}`}>
+    <div
+      className={`message ${receiverORsender ? "sent" : "received"}`}
+      style={{ opacity: Loading ? 0.5 : 1 }}
+    >
       <Suspense fallback={<div className="spinner small"></div>}>
         <img
           src={photoURL}
@@ -46,7 +68,7 @@ function ChatMessage({ value, uid, photoURL, type, docId }) {
       ) : (
         <img src={value} loading="lazy" className="messageImg" alt="Image" />
       )}
-      {receiverORsender ? (
+      {receiverORsender && !Loading ? (
         <div className="unSendContainer">
           <svg
             aria-label="More"
