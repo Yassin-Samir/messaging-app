@@ -12,8 +12,8 @@
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
     "firebase": "^9.12.1",
-    "react": "^0.0.0-experimental-ddff50469-20230829",
-    "react-dom": "^0.0.0-experimental-ddff50469-20230829",
+    "react": "^0.0.0-experimental-9b4f847d9-20230901",
+    "react-dom": "^0.0.0-experimental-9b4f847d9-20230901",
     "react-helmet-async": "^1.3.0"
   },
   "devDependencies": {
