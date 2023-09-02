@@ -6,28 +6,18 @@ import ChatMessage from "./Chatmessage";
 const messagesRef = collection(db, "messages");
 const messagesQuery = query(
   messagesRef,
-  /*  limit(15), */
-  orderBy("createdAt")
+  limit(15),
+  orderBy("createdAt", "desc")
 );
 function Chatroom() {
-  const { optimisticMessages, setOptimisticMessages } =
-    useCollectionData(messagesQuery);
+  const messages = useCollectionData(messagesQuery);
   return (
     <>
       <section>
-        {optimisticMessages &&
-          optimisticMessages.map((i) => (
-            <ChatMessage
-              {...i}
-              key={i.docId}
-              optimisticMessages={optimisticMessages}
-            />
-          ))}
+        {messages &&
+          messages.reverse().map((i) => <ChatMessage {...i} key={i.docId} />)}
       </section>
-      <Form
-        messagesRef={messagesRef}
-        setOptimisticMessages={setOptimisticMessages}
-      />
+      <Form messagesRef={messagesRef} />
     </>
   );
 }

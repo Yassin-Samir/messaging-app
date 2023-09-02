@@ -19,11 +19,6 @@ section::-webkit-scrollbar-thumb {
 }
 .message {
   display: flex;
-  transition: 0.5s linear;
-  -webkit-transition: 0.5s linear;
-  -moz-transition: 0.5s linear;
-  -ms-transition: 0.5s linear;
-  -o-transition: 0.5s linear;
 }
 .message .unSendContainer {
   display: flex;
