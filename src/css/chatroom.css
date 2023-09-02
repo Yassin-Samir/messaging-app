@@ -1,0 +1,129 @@
+section {
+  padding: 10px;
+  height: 80vh;
+  margin: 10vh 0 10vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+section::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+section::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+section::-webkit-scrollbar-thumb {
+  background: #6649b8;
+}
+.message {
+  display: flex;
+  transition: 0.5s linear;
+  -webkit-transition: 0.5s linear;
+  -moz-transition: 0.5s linear;
+  -ms-transition: 0.5s linear;
+  -o-transition: 0.5s linear;
+}
+.message .unSendContainer {
+  display: flex;
+  position: relative;
+  margin-right: 10px;
+}
+.message .threeDots {
+  align-self: center;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.message .unSend {
+  position: absolute;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  font-size: 0.7rem;
+  left: -85px;
+  bottom: 65%;
+}
+.sent {
+  flex-direction: row-reverse;
+}
+
+.message a {
+  display: inline;
+}
+
+.sent p {
+  color: white;
+  background: #0b93f6;
+  align-self: flex-end;
+}
+.received p {
+  background: #e5e5ea;
+  color: black;
+}
+
+img.user {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+img.messageImg {
+  width: 150px;
+  height: 150px;
+}
+.scroll {
+  margin-top: 50px;
+}
+form {
+  height: 10vh;
+  position: fixed;
+  bottom: 0;
+  background-color: rgb(24, 23, 23);
+  width: 100%;
+  max-width: 728px;
+  display: flex;
+  font-size: 1.2rem;
+}
+
+form button {
+  width: 20%;
+  background-color: rgb(56, 56, 143);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+form .displayImg {
+  align-self: center;
+  width: 80px;
+  height: 60px;
+  transition: 0.5s linear;
+  -webkit-transition: 0.5s linear;
+  -moz-transition: 0.5s linear;
+  -ms-transition: 0.5s linear;
+  -o-transition: 0.5s linear;
+}
+form > div {
+  position: relative;
+}
+form .xIcon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 12432;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+}
+form .imgInput {
+  padding: 0;
+}
