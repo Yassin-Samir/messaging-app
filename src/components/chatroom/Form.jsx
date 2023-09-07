@@ -31,21 +31,17 @@ function Form({ messagesRef }) {
     },
     [Img]
   );
-  const handleOpenEmojiPicker = useCallback(
-    () => setShowEmojiPicker((prev) => !prev),
-    []
-  );
-  const cleanImg = useCallback(
-    () =>
-      setImg((prev) => {
-        URL.revokeObjectURL(prev.url);
-        return null;
-      }),
-    []
-  );
+  const handleOpenEmojiPicker = () => setShowEmojiPicker((prev) => !prev);
+  const cleanImg = () =>
+    setImg((prev) => {
+      console.log({ prev });
+      URL.revokeObjectURL(prev.url);
+      return null;
+    });
   const sendMessage = useCallback(
     async (e) => {
       e.preventDefault();
+      closeEmojiPicker();
       try {
         let downloadUrl = "";
         if (Img) {
@@ -62,13 +58,15 @@ function Form({ messagesRef }) {
           }
         }
         setLoading((prev) => (prev !== null ? prev : true));
-        addDoc(messagesRef, {
+        const documentObj = {
           type: Img ? "Image" : "text",
           value: Img ? downloadUrl : message,
           uid: auth.currentUser.uid,
           createdAt: serverTimestamp(),
           photoURL: auth.currentUser.photoURL,
-        });
+        };
+        Img && !Img.sent ? (documentObj.ImageName = Img.name) : null;
+        addDoc(messagesRef, documentObj);
       } catch (error) {
         alert("failed to send your message please try again");
       } finally {
@@ -82,15 +80,12 @@ function Form({ messagesRef }) {
     },
     [message, auth, Img]
   );
-  const handleEmojiClick = useCallback(
-    (emoji) => setMessage((prevMessage) => prevMessage + emoji.native),
-    []
-  );
-  const handleChange = useCallback(
-    ({ target: { value } }) => setMessage(value),
-    []
-  );
-  const handleImgChange = useCallback(() => fileInputRef.current.click(), []);
+  const handleEmojiClick = (emoji) =>
+    setMessage((prevMessage) => prevMessage + emoji.native);
+  const closeEmojiPicker = () =>
+    ShowEmojiPicker ? setShowEmojiPicker(false) : null;
+  const handleChange = ({ target: { value } }) => setMessage(value);
+  const handleImgChange = () => fileInputRef.current.click();
   return (
     <>
       {ShowEmojiPicker && (
@@ -120,7 +115,7 @@ function Form({ messagesRef }) {
           placeholder="Write a message"
           disabled={Img}
           onChange={handleChange}
-          onClick={() => (ShowEmojiPicker ? setShowEmojiPicker(false) : null)}
+          onClick={closeEmojiPicker}
         />
         <button
           type="button"

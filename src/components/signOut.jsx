@@ -9,7 +9,7 @@ function SignOut() {
     } catch (error) {
       alert("failed to sign-out");
     }
-  }, [auth?.currentUser?.uid]);
+  }, [auth]);
   return <button className="signBtn" onClick={handleSignOut}>SignOut</button>;
 }
 export default SignOut;

@@ -11,7 +11,9 @@ function Chatroom() {
     <>
       <section>
         {messages &&
-          messages.map((i) => <ChatMessage {...i} key={i.docId} />)}
+          messages.map((i) => (
+            <ChatMessage {...i} messages={messages} key={i.docId} />
+          ))}
       </section>
       <Form messagesRef={messagesRef} />
     </>
