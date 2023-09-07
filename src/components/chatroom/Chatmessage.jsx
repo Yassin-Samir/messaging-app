@@ -37,7 +37,7 @@ function ChatMessage({
       if (isThisImageUsedInAnotherMessage?.length > 1) return;
       const deleteImg = await deleteObject(ref(storage, `/files/${ImageName}`));
     }
-  }, [docId, ImageName, optimisticMessages]);
+  }, [docId, ImageName]);
   return (
     <div
       className={`message ${receiverORsender ? "sent" : "received"}`}
