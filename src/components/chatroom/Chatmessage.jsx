@@ -47,7 +47,6 @@ function ChatMessage({
       className={`message ${receiverORsender ? "sent" : "received"} ${
         Deleted ? "deleted" : ''
       }`}
-      style={{ opacity: Loading ? 0.5 : null }}
     >
       <Suspense fallback={<div className="spinner small"></div>}>
         <img
