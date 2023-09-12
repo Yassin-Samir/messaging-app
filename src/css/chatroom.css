@@ -45,7 +45,9 @@ section::-webkit-scrollbar-thumb {
 .sent {
   flex-direction: row-reverse;
 }
-
+.message.deleted {
+  opacity: 0;
+}
 .message a {
   display: inline;
 }
