@@ -43,9 +43,10 @@ section::-webkit-scrollbar-thumb {
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   left: -85px;
   bottom: 65%;
+  padding: 10px 15px;
 }
 .sent {
   flex-direction: row-reverse;
