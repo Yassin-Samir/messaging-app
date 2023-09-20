@@ -1,0 +1,42 @@
+form.updateProfileForm button.updateProfilePicture {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+form.updateProfileForm button.updateProfilePicture {
+  padding: 0;
+}
+form.updateProfileForm img {
+  transition: 0.3s linear;
+  -webkit-transition: 0.3s linear;
+  -moz-transition: 0.3s linear;
+  -ms-transition: 0.3s linear;
+  -o-transition: 0.3s linear;
+}
+form.updateProfileForm button.updateProfilePicture,
+form.updateProfileForm img {
+  width: 150px;
+  height: 150px;
+  margin: 0;
+}
+form.updateProfileForm button.updateProfilePicture:hover img {
+  opacity: 0.5;
+}
+form p.displayName {
+  text-align: center;
+  margin: 10px auto 0;
+  width: fit-content;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+}
+
+form button.updateProfileBtn {
+  padding: 20px 25px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  font-size: 1.3rem;
+}

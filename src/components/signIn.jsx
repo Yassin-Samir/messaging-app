@@ -1,20 +1,22 @@
 import { useContext, useCallback } from "react";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { AuthContext } from "../App";
+import { AuthContext } from "./Layout";
+import { useNavigate } from "react-router-dom";
 function SignIn() {
-  const auth = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   const HandleLogin = (provider) => {
-    return () => {
+    return async () => {
       try {
-        signInWithPopup(auth, provider);
-      } catch {
+        const signIn = await signInWithPopup(auth, provider);
+      } catch (error) {
+        console.log({ signInError: error });
         alert("failed to sign-in retry again");
       }
     };
   };
   return (
     <button
-      className="sign-in sign"
+      className="sign-in sign signBtn"
       id="google"
       onClick={HandleLogin(new GoogleAuthProvider())}
     >

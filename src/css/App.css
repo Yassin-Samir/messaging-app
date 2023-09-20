@@ -20,6 +20,20 @@ header {
   padding: 10px;
   box-sizing: border-box;
 }
+button.signBtn {
+  padding: 15px 32px;
+}
+img.updateProfile {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+header img.updateProfile {
+  height: 50px;
+  width: 50px;
+}
 main {
   display: flex;
   flex-direction: column;

@@ -1,7 +1,7 @@
 import { useState, useContext, useCallback, memo, useRef } from "react";
 import { addDoc, serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { AuthContext } from "../../App";
+import { AuthContext } from "../Layout";
 import Picker from "@emoji-mart/react";
 import EmojiData from "@emoji-mart/data";
 import imgInput from "../../assets/image-solid.svg";
@@ -16,9 +16,10 @@ function Form({ messagesRef }) {
   const reader = useReader();
   const [Img, setImg] = useState(null);
   const fileInputRef = useRef(null);
-  const auth = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   const handleInputChange = useCallback(
     (e) => {
+      Img && URL.revokeObjectURL(Img.url);
       if (!e.target.files.length) {
         alert("no files were selected");
         setImg(null);
@@ -26,8 +27,6 @@ function Form({ messagesRef }) {
       }
       const file = e.target.files[0];
       setImg(reader(file));
-      if (!Img) return;
-      URL.revokeObjectURL(Img.url);
     },
     [Img]
   );
@@ -68,6 +67,7 @@ function Form({ messagesRef }) {
         Img && !Img.sent ? (documentObj.ImageName = Img.name) : null;
         addDoc(messagesRef, documentObj);
       } catch (error) {
+        console.log({ error });
         alert("failed to send your message please try again");
       } finally {
         setLoading(null);
@@ -91,7 +91,7 @@ function Form({ messagesRef }) {
       {ShowEmojiPicker && (
         <Picker data={EmojiData} onEmojiSelect={handleEmojiClick} />
       )}
-      <form onSubmit={sendMessage}>
+      <form onSubmit={sendMessage} className="messageFrom">
         {Img ? (
           <div>
             <img

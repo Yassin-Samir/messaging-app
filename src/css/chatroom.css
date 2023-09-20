@@ -76,7 +76,7 @@ img.messageImg {
 .scroll {
   margin-top: 50px;
 }
-form {
+form.messageFrom {
   height: 10vh;
   position: fixed;
   bottom: 0;
@@ -87,7 +87,7 @@ form {
   font-size: 1.2rem;
 }
 
-form button {
+form.messageFrom button {
   width: 20%;
   background-color: rgb(56, 56, 143);
 }

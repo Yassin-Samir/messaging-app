@@ -2,7 +2,7 @@ import { Suspense, useCallback, useContext, useState } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db, storage } from "../../firebase/firebase";
 import { deleteObject, ref } from "firebase/storage";
-import { AuthContext } from "../../App";
+import { AuthContext } from "../Layout";
 
 const linkRegex =
   /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?/g;
@@ -16,7 +16,7 @@ function ChatMessage({
   ImageName,
 }) {
   const [DisplayMenu, setDisplayMenu] = useState(false);
-  const auth = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   const receiverORsender = uid === auth.currentUser.uid;
   const handleUnSendMessage = useCallback(async () => {
     const docRef = doc(db, "messages", docId);
