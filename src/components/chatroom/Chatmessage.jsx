@@ -16,28 +16,38 @@ function ChatMessage({
   ImageName,
 }) {
   const [DisplayMenu, setDisplayMenu] = useState(false);
+  const [Deleted, setDeleted] = useState(false);
   const { auth } = useContext(AuthContext);
   const receiverORsender = uid === auth.currentUser.uid;
-  const handleUnSendMessage = useCallback(async () => {
+  const handleUnSendMessage = useCallback(() => {
+    setDeleted(true);
     const docRef = doc(db, "messages", docId);
-    try {
-      const deleteDocument = await deleteDoc(docRef);
-      setDisplayMenu(false);
-    } catch (error) {
-      console.log({ error });
-      alert("failed to delete doc");
-    } finally {
-      if (type === "text") return;
-      const isThisImageUsedInAnotherMessage = messages?.filter(
-        ({ type, ImageName: value }) => type !== "text" && value === ImageName
-      );
-      console.log({ isThisImageUsedInAnotherMessage });
-      if (isThisImageUsedInAnotherMessage?.length > 1) return;
-      const deleteImg = await deleteObject(ref(storage, `/files/${ImageName}`));
-    }
+    setTimeout(async () => {
+      try {
+        const deleteDocument = await deleteDoc(docRef);
+        setDisplayMenu(false);
+      } catch (error) {
+        console.log({ error });
+        alert("failed to delete doc");
+      } finally {
+        if (type === "text") return;
+        const isThisImageUsedInAnotherMessage = optimisticMessages?.filter(
+          ({ type, ImageName: value }) => type !== "text" && value === ImageName
+        );
+        console.log({ isThisImageUsedInAnotherMessage });
+        if (isThisImageUsedInAnotherMessage?.length > 1) return;
+        const deleteImg = await deleteObject(
+          ref(storage, `/files/${ImageName}`)
+        );
+      }
+    }, 550);
   }, [docId, ImageName]);
   return (
-    <div className={`message ${receiverORsender ? "sent" : "received"}`}>
+    <div
+      className={`message ${receiverORsender ? "sent" : "received"} ${
+        Deleted ? "deleted" : ""
+      }`}
+    >
       <Suspense fallback={<div className="spinner small"></div>}>
         <img
           src={photoURL}
