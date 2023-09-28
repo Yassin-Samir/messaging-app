@@ -15,10 +15,13 @@ function UpdateProfile() {
   const [ProfilePicture, setProfilePicture] = useState({
     url: currentUser?.photoURL || "",
   });
+  useEffect(() => () => cleanImg(), []);
   useEffect(() => {
     setProfilePicture({ url: currentUser?.photoURL || "" });
   }, [currentUser]);
-  console.log(currentUser?.photoURL);
+  const cleanImg = () => {
+    ProfilePicture?.blob && URL.revokeObjectURL(ProfilePicture?.url);
+  };
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     if (ProfilePicture?.url === currentUser?.photoURL) {
@@ -41,11 +44,12 @@ function UpdateProfile() {
       console.log({ error });
       alert("an error has occured");
     } finally {
+      cleanImg();
       setLoading(false);
     }
   };
   const handleInputChange = (e) => {
-    ProfilePicture?.blob && URL.revokeObjectURL(ProfilePicture?.url);
+    cleanImg();
     if (!e.target.files.length) {
       alert("no files were selected");
       setProfilePicture({ url: currentUser?.photoURL });

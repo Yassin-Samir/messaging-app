@@ -14,7 +14,7 @@ function Layout() {
       setUser(user);
       if (Location.pathname === "/updateProfile" && user) return;
       navigate(user ? "/chatroom" : "/signin");
-      console.log('jetta');
+      console.log("jetta");
     });
   }, []);
   return (
@@ -40,6 +40,7 @@ function Layout() {
                     src={user.photoURL}
                     className="updateProfile"
                     referrerPolicy="no-referrer"
+                    loading="eager"
                   />
                 </Link>
               )}
@@ -47,11 +48,9 @@ function Layout() {
             </div>
             {user && <SignOut />}
           </header>
-          <>
-            <main>
-              <Outlet />
-            </main>
-          </>
+          <main>
+            <Outlet />
+          </main>
         </div>
       </AuthContext.Provider>
     </>

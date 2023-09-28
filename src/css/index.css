@@ -47,7 +47,7 @@ input {
 }
 
 button {
-  background-color: #282c34; /* Green */
+  background-color: #282c34;
   border: none;
   color: white;
   text-align: center;
@@ -55,7 +55,12 @@ button {
   display: inline-block;
   cursor: pointer;
 }
-
+.spinnerContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .spinner {
   border: 2px solid blue;
   border-right-color: transparent;
@@ -64,7 +69,6 @@ button {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
-  margin: 0 auto;
   animation: spin 1s 0s linear infinite;
   -webkit-animation: spin 1s 0s linear infinite;
 }
