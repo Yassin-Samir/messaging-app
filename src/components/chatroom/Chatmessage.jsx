@@ -31,7 +31,7 @@ function ChatMessage({
         alert("failed to delete doc");
       } finally {
         if (type === "text") return;
-        const isThisImageUsedInAnotherMessage = optimisticMessages?.filter(
+        const isThisImageUsedInAnotherMessage = messages?.filter(
           ({ type, ImageName: value }) => type !== "text" && value === ImageName
         );
         console.log({ isThisImageUsedInAnotherMessage });
