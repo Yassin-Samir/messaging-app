@@ -6,7 +6,13 @@ import "./css/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Suspense fallback={<div className="spinner big"></div>}>
+    <Suspense
+      fallback={
+        <div className="spinnerContainer">
+          <div className="spinner big"></div>
+        </div>
+      }
+    >
       <RouterProvider router={router} />
     </Suspense>
   </React.StrictMode>

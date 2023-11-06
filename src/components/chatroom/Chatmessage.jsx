@@ -52,6 +52,7 @@ function ChatMessage({
         <img
           src={photoURL}
           className="user"
+          loading="eager"
           alt="USER IMAGE"
           referrerPolicy="no-referrer"
         />
