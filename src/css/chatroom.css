@@ -5,6 +5,8 @@ section {
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
+ /*  position: fixed;
+  max-width: 748px; */
 }
 section::-webkit-scrollbar {
   width: 0.25rem;

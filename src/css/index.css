@@ -119,3 +119,9 @@ button {
     -o-transform: rotate(360deg);
   }
 }
+#root {
+  position: fixed;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+}

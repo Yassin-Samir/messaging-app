@@ -1,4 +1,11 @@
-import { Suspense, useCallback, useContext, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db, storage } from "../../firebase/firebase";
 import { deleteObject, ref } from "firebase/storage";
@@ -14,11 +21,38 @@ function ChatMessage({
   type,
   docId,
   ImageName,
+  isFirstMessage,
+  setLoadingMore,
+  Limit,
 }) {
   const [DisplayMenu, setDisplayMenu] = useState(false);
   const [Deleted, setDeleted] = useState(false);
   const { auth } = useContext(AuthContext);
   const receiverORsender = uid === auth.currentUser.uid;
+  const LastMessageRef = useRef();
+  useEffect(() => {
+    let TimeOut;
+    const observer = isFirstMessage
+      ? new IntersectionObserver(
+          (entries) => {
+            entries.map((entry) => {
+              if (!entry.isIntersecting) return;
+              setLoadingMore(true);
+              TimeOut = setTimeout(() => {
+                setLoadingMore(false);
+                Limit.current = Limit.current + 15;
+              }, 2000);
+            });
+          },
+          { threshold: 0.5 }
+        )
+      : null;
+    isFirstMessage && observer.observe(LastMessageRef.current);
+    return () => {
+      isFirstMessage && typeof TimeOut === "number" && clearTimeout(TimeOut);
+      isFirstMessage && observer.disconnect();
+    };
+  }, [isFirstMessage]);
   const handleUnSendMessage = useCallback(() => {
     setDeleted(true);
     const docRef = doc(db, "messages", docId);
@@ -47,6 +81,7 @@ function ChatMessage({
       className={`message ${receiverORsender ? "sent" : "received"} ${
         Deleted ? "deleted" : ""
       }`}
+      ref={isFirstMessage ? LastMessageRef : null}
     >
       <Suspense fallback={<div className="spinner small"></div>}>
         <img
