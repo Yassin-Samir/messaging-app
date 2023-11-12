@@ -41,7 +41,7 @@ function ChatMessage({
               TimeOut = setTimeout(() => {
                 setLoadingMore(false);
                 Limit.current = Limit.current + 15;
-              }, 2000);
+              }, 1000);
             });
           },
           { threshold: 0.5 }
