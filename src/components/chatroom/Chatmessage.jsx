@@ -10,14 +10,13 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db, storage } from "../../firebase/firebase";
 import { deleteObject, ref } from "firebase/storage";
 import { AuthContext } from "../Layout";
-
+import { useProfilePictures } from "../../contexts/ProfilePicturesProvider";
 const linkRegex =
   /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?/g;
 function ChatMessage({
   value,
   messages,
   uid,
-  photoURL,
   type,
   docId,
   ImageName,
@@ -26,6 +25,7 @@ function ChatMessage({
   Limit,
 }) {
   const [DisplayMenu, setDisplayMenu] = useState(false);
+  const profilePictures = useProfilePictures();
   const [Deleted, setDeleted] = useState(false);
   const { auth } = useContext(AuthContext);
   const receiverORsender = uid === auth.currentUser.uid;
@@ -85,7 +85,7 @@ function ChatMessage({
     >
       <Suspense fallback={<div className="spinner small"></div>}>
         <img
-          src={photoURL}
+          src={profilePictures[uid] || "/Profile_avatar_placeholder_large.png"}
           className="user"
           loading="eager"
           alt="USER IMAGE"

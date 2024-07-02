@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
-import { storage } from "../firebase/firebase";
+import { db, storage } from "../firebase/firebase";
 import { uploadBytesResumable, getDownloadURL, ref } from "firebase/storage";
 import { AuthContext } from "./Layout";
 import useReader from "../hooks/useReader";
+import { doc, updateDoc } from "firebase/firestore";
 function UpdateProfile() {
   const { auth } = useContext(AuthContext);
   const { currentUser } = auth;
@@ -32,12 +33,16 @@ function UpdateProfile() {
     try {
       const storageRef = ref(
         storage,
-        `/profilePictures/${ProfilePicture.name}`
+        `/profilePictures/${auth.currentUser.uid}/${ProfilePicture.name}`
       );
       const uploadTask = uploadBytesResumable(storageRef, ProfilePicture.blob);
-      const updateProfileTask = await updateProfile(currentUser, {
+      const photoURL = await getDownloadURL((await uploadTask).ref);
+      await updateProfile(currentUser, {
         displayName: currentUser?.displayName,
-        photoURL: await getDownloadURL((await uploadTask).ref),
+        photoURL,
+      });
+      await updateDoc(doc(db, "users", auth.currentUser.uid), {
+        ProfilePicture: photoURL,
       });
       Navigate("/chatroom");
     } catch (error) {

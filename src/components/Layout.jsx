@@ -1,7 +1,8 @@
 import { lazy, createContext, useEffect, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { auth } from "../firebase/firebase";
+import { auth, db } from "../firebase/firebase";
 import { Outlet, useNavigate, Link, useLocation } from "react-router-dom";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 const SignOut = lazy(() => import("./signOut"));
 export const AuthContext = createContext(null);
 
@@ -10,12 +11,19 @@ function Layout() {
   const navigate = useNavigate();
   const Location = useLocation();
   useEffect(() => {
-    const unListen = auth.onAuthStateChanged((user) => {
+    const unListen = auth.onAuthStateChanged(async (user) => {
       setUser(user);
       if (Location.pathname === "/updateProfile" && user) return;
       navigate(user ? "/chatroom" : "/signin");
-      console.log("jetta");
+      if (!user) return;
+      if ((await getDoc(doc(db, "users", user.uid))).exists()) return;
+      await setDoc(doc(db, "users", user.uid), {
+        ProfilePicture: user.photoURL,
+      });
     });
+    return () => {
+      unListen();
+    };
   }, []);
   return (
     <>
