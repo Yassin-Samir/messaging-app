@@ -6,7 +6,7 @@
 
 header {
   background-color: #181717;
-  height: 10vh;
+  height: 10dvh;
   min-height: 50px;
   color: white;
   position: fixed;
@@ -16,9 +16,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 99;
   padding: 10px;
-  box-sizing: border-box;
 }
 button.signBtn {
   padding: 15px 32px;
@@ -35,12 +33,9 @@ header img.updateProfile {
   width: 50px;
 }
 main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
+  height: 100dvh;
+  overflow-y: hidden;
   background-color: rgb(40, 37, 53);
-  position: relative;
 }
 button.sign {
   font-size: 1.25rem;

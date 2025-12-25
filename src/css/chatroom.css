@@ -1,12 +1,8 @@
 section {
-  padding: 10px;
-  height: 80vh;
-  margin: 10vh 0 10vh;
+  padding: 0 10px;
+  height: 80%;
+  margin-top: 10dvh;
   overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
- /*  position: fixed;
-  max-width: 748px; */
 }
 section::-webkit-scrollbar {
   width: 0.25rem;
@@ -86,10 +82,8 @@ img.messageImg {
 .scroll {
   margin-top: 50px;
 }
-form.messageFrom {
-  height: 10vh;
-  position: fixed;
-  bottom: 0;
+form.messageForm {
+  height: 10%;
   background-color: rgb(24, 23, 23);
   width: 100%;
   max-width: 728px;
@@ -97,7 +91,14 @@ form.messageFrom {
   font-size: 1.2rem;
 }
 
-form.messageFrom button {
+form.messageForm input {
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+}
+form.messageForm button {
   width: 20%;
   background-color: rgb(56, 56, 143);
 }

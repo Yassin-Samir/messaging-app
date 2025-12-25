@@ -91,7 +91,7 @@ function Form({ messagesRef }) {
       {ShowEmojiPicker && (
         <Picker data={EmojiData} onEmojiSelect={handleEmojiClick} />
       )}
-      <form onSubmit={sendMessage} className="messageFrom">
+      <form onSubmit={sendMessage} className="messageForm">
         {Img ? (
           <div>
             <img
