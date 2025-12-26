@@ -40,7 +40,7 @@ main {
 button.sign {
   font-size: 1.25rem;
 }
-main > div:not(.spinner) {
+main > div.spinnerParent {
   position: absolute;
   right: 1vw;
   bottom: 10.5vh;

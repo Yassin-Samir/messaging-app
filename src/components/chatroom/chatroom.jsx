@@ -27,6 +27,7 @@ function Chatroom() {
       <section>
         {LoadingMore ? (
           <div
+            className="spinnerParent"
             style={{
               display: "flex",
               justifyContent: "center",

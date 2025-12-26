@@ -15,13 +15,15 @@ function SignIn() {
     };
   };
   return (
-    <button
-      className="sign-in sign signBtn"
-      id="google"
-      onClick={HandleLogin(new GoogleAuthProvider())}
-    >
-      SignIn with google
-    </button>
+    <div className="parent">
+      <button
+        className="sign-in sign signBtn"
+        id="google"
+        onClick={HandleLogin(new GoogleAuthProvider())}
+      >
+        SignIn with google
+      </button>
+    </div>
   );
 }
 export default SignIn;

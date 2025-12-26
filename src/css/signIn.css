@@ -6,3 +6,10 @@
   color: #282c34;
   background: white;
 }
+.parent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center ;
+}
